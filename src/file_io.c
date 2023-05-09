@@ -9,6 +9,7 @@ int image_read(image_t *img, FILE *fin) {
     NOT_IMPLEMENTED;
     UNUSED(img);
     UNUSED(fin);
+    
     return -1;
 }
 
