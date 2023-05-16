@@ -2,29 +2,31 @@
 
 #include <assert.h>
 #include <stdlib.h>
-
+#include<string.h>
 #include "util.h"
 
 int image_read(image_t *img, FILE *fin)
 {
 
-    int height = 0;
     int width = 0;
+    int height = 0;
+    char p[3];
+    int max_value;
 
-    if (fscanf(fin, "P3 %d  %d 255", &height, &width) != 2)
-    {
+    fscanf(fin, "%s %d %d %d", p, &width, &height, &max_value);
+    if( strcmp(p,"P3")!=0 ||  width<=0 ||  height<=0|| max_value!=255  ){ 
+    
         // fclose(fin);
         // exit(EXIT_FAILURE);
         return -1;
     }
-    if (height <= 0 || width <= 0)
-    {
-        // fclose(fin);
-        // exit(EXIT_FAILURE);
+    
+
+    pixel_t *pixel = malloc( width * height * sizeof(pixel_t));
+    if(pixel==NULL){
+        printf("memory not allocated");
         return -1;
     }
-
-    pixel_t *pixel = malloc(height * width * sizeof(pixel_t));
 
     for (int i = 0; i < (width * height); i++)
     {
@@ -62,7 +64,7 @@ void image_write(const image_t *img, FILE *fout)
 
     for (int i = 0; i < img->h * img->w; ++i)
     {
-        fprintf(fout, " %d %d %d ", img->img[i].r, img->img[i].g, img->img[i].b);
+        fprintf(fout, "%d %d %d ", img->img[i].r, img->img[i].g, img->img[i].b);
 
 }
 }
