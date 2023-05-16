@@ -26,6 +26,7 @@ void rotate_counterclockwise(image_t *img)
 
     free(img->img);
     img->img = pixels;
+    // free(pixels);
 }
 
 void rotate_clockwise(image_t *img)
@@ -50,18 +51,41 @@ void rotate_clockwise(image_t *img)
 
     free(img->img);
     img->img = pixels;
+    // free(pixels);
+
+
 }
 
 void mirror_horizontal(image_t *img)
 {
-    NOT_IMPLEMENTED;
-    UNUSED(img);
+    int width = img->w;
+    int height = img->h;
+    
+    pixel_t *mirror1= malloc(width * height * (sizeof(pixel_t)));
+    for(int i = 0; i<width; ++i){    // i gives number of coloum , it is x inn slides
+        for(int j = 0 ;j<height; ++j){  // j gives the number of rows, it is y in slides
+        mirror1[(j* width) +i]= img->img[(j *width) + width-(i+1)];
+
+        }
+    }
+    free(img->img);
+    img->img= mirror1;
 }
 
 void mirror_vertical(image_t *img)
 {
-    NOT_IMPLEMENTED;
-    UNUSED(img);
+    int width = img->w;
+    int height = img->h;
+    
+    pixel_t *mirror2= malloc(width * height * (sizeof(pixel_t)));
+    for(int i = 0; i<width; ++i){    // i gives number of coloum , it is x inn slides
+        for(int j = 0 ;j<height; ++j){  // j gives the number of rows, it is y in slides
+        mirror2[(j* width) +i]= img->img[(width-(j+1)) *width + i];
+
+        }
+    }
+    free(img->img);
+    img->img= mirror2;
 }
 
 void resize(image_t *img, int new_width, int new_height)
