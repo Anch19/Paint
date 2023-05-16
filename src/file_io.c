@@ -63,8 +63,8 @@ void image_write(const image_t *img, FILE *fout)
     for (int i = 0; i < img->h * img->w; ++i)
     {
         fprintf(fout, " %d %d %d ", img->img[i].r, img->img[i].g, img->img[i].b);
-    }
-    
+
+}
 }
 
 void image_free(image_t *img)
