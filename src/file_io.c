@@ -28,7 +28,7 @@ int image_read(image_t *img, FILE *fin)
 
     for (int i = 0; i < (width * height); i++)
     {
-        if (fscanf(fin, "%d %d %d", &pixel[i].r, &pixel[i].g, &pixel[i].b) != 3)
+        if (fscanf(fin, "%d %d %d ", &pixel[i].r, &pixel[i].g, &pixel[i].b) != 3)
         {
             // fclose(fin);
             free(pixel);
@@ -41,9 +41,10 @@ int image_read(image_t *img, FILE *fin)
             return -1;
         }
     }
-    if (feof(fin))
+    if (!feof(fin))
     {
         // fclose(fin);
+        free(pixel);
         return -1;
     }
 
@@ -63,7 +64,7 @@ void image_write(const image_t *img, FILE *fout)
     {
         fprintf(fout, " %d %d %d ", img->img[i].r, img->img[i].g, img->img[i].b);
     }
-    fclose(fout);
+    
 }
 
 void image_free(image_t *img)
