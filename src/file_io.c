@@ -14,7 +14,7 @@ int image_read(image_t *img, FILE *fin)
     int max_value;
 
     fscanf(fin, "%s %d %d %d", p, &width, &height, &max_value);
-    if( strcmp(p,"P3")!=0 ||  width<=0 ||  height<=0|| max_value!=255  ){ 
+    if( strcmp(p,"P3")!=0 ||  width<=0 ||  height<=0|| max_value!=255){ 
     
         // fclose(fin);
         // exit(EXIT_FAILURE);
