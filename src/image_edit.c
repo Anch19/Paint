@@ -81,7 +81,7 @@ void mirror_vertical(image_t *img)
     { // i gives number of coloum , it is x inn slides
         for (int j = 0; j < height; ++j)
         { // j gives the number of rows, it is y in slides
-            mirror2[(j * width) + i] = img->img[((width - (j + 1)) * width) + i];
+            mirror2[(j * width) + i] = img->img[((height - (j + 1)) * width) + i];
         }
     }
     free(img->img);
