@@ -94,25 +94,106 @@ void resize(image_t *img, int new_width, int new_height)
     int oldwidth = img->w;
     int oldheight = img->h;
      
-     image_t *resized_image = malloc(sizeof(image_t));
-     resized_image->w = new_width;
-     resized_image->h = new_height;
+   
 
-        resized_image->img = calloc(new_width * new_height , sizeof(pixel_t));
+        pixel_t *resize = malloc(new_width * new_height * (sizeof(pixel_t)));
 
-        for (int i = 0; i < new_width; i++)
-        {
-            for (int j = 0; j < new_height; j++)
-            {
-
-                if(i<oldwidth && j <oldheight){
-                resized_image->img[(j * new_width) + i]= img->img[(j * oldwidth) + i];
-            }
+ // case 1 when both dimensions are bigger 
+if(new_width>= oldwidth && new_height>=oldheight){
+    for(int  i = 0 ; i<new_width; i++){
+        for(int j = 0 ; j<new_height; j++){
+            if(i<oldwidth && j<oldheight){
+                resize[(j * new_width) + i]= img->img[(j * oldwidth) + i];
+                }
+                else{
+                   resize[(j * new_width) + i].r = 0;
+                   resize[(j * new_width) + i].g = 0;
+                   resize[(j * new_width) + i].b = 0;
+                }
+            
         }
     }
-     free(img->img);
+}
+//case 2 when both dimenssion are smaller
+ else if(new_width<=oldwidth && new_height<=oldheight){
+    for(int  i = 0 ; i<new_width; i++){
+        for(int j = 0 ; j<new_height; j++){
+            resize[(j * new_width) + i]= img->img[(j * oldwidth) + i];
+        }
+    }
+ }
+ //case 3 when w is bigger but h is same
+ else if (new_width>oldwidth && new_height==oldheight){
+    for(int i = 0 ; i<new_width ; i++){
+        for (int j = 0; j<new_height ; j++){
+             if(i<oldwidth ){
+                resize[(j * new_width) + i]= img->img[(j * oldwidth) + i];
+                }
+                else{
+                    resize[(j * new_width) + i].r = 0;
+                    resize[(j * new_width) + i].g = 0;
+                    resize[(j * new_width) + i].b = 0;
+                }
+        }
+    }
+ }
+//case 4 when w is same but h is bigger 
+else if (new_width==oldwidth && new_height>oldheight){
+     for(int i = 0 ; i<new_width ; i++){
+        for (int j = 0; j<new_height ; j++){
+             if(j<oldheight){
+                resize[(j * new_width) + i]= img->img[(j * oldwidth) + i];
+                }
+                else{
+                   resize[(j * new_width) + i].r = 0;
+                   resize[(j * new_width) + i].g = 0;
+                   resize[(j * new_width) + i].b = 0;
+                }
+        }
+    }
 
-    *img=*resized_image;
-    
-    
+}
+//case 5 where w is bigger and h is smaller 
+else if (new_width> oldwidth && new_height<oldheight){
+  for(int i = 0 ; i<new_width ; i++){
+        for (int j = 0; j<new_height ; j++){
+            if(i<oldwidth ){
+                 resize[(j * new_width) + i]= img->img[(j * oldwidth) + i];
+            }
+            else{
+                  resize[(j * new_width) + i].r = 0;
+                  resize[(j * new_width) + i].g = 0;
+                  resize[(j * new_width) + i].b = 0; 
+            }
+        }
+  }
+}
+// case 6 where w is small and h is bigger 
+else if (new_width<oldwidth && new_height>oldheight){
+  for(int i = 0 ; i<new_width ; i++){
+        for (int j = 0; j<new_height ; j++){
+             if(j<oldheight){
+                 resize[(j * new_width) + i]= img->img[(j * oldwidth) + i];
+             }
+              else{
+                 resize[(j * new_width) + i].r = 0;
+                 resize[(j * new_width) + i].g = 0;
+                 resize[(j * new_width) + i].b = 0;
+            }
+
+        }
+  }
+}
+else{
+     for(int i = 0 ; i<new_width ; i++){
+        for (int j = 0; j<new_height ; j++){
+             resize[(j * new_width) + i]= img->img[(j * oldwidth) + i];
+        }
+        
+     }
+}
+     free(img->img);
+    img->img = resize;
+     img->w = new_width;
+    img->h = new_height;
 }
