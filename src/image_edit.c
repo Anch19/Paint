@@ -19,7 +19,7 @@ void rotate_counterclockwise(image_t *img)
             // pixels[(img->h - 1 - j) * img->h + i] = img->img[i * img->w + j];
         }
     }
-    // note that the swapping formula has been partially taken by chatgpt.
+   
     int swap = img->w;
     img->w = img->h;
     img->h = swap;
@@ -31,8 +31,7 @@ void rotate_counterclockwise(image_t *img)
 
 void rotate_clockwise(image_t *img)
 {
-    // NOT_IMPLEMENTED;
-    // UNUSED(img);
+     
     pixel_t *pixels = malloc((img->w) * (img->h) * (sizeof(pixel_t)));
     for (int i = 0; i < img->h; i++)
     { // this goes upwards and iterates over the rows
@@ -42,7 +41,7 @@ void rotate_clockwise(image_t *img)
             int newcolumn = img->h - 1 - i;
             pixels[newrow * img->h + newcolumn] = img->img[i * img->w + j];
         }
-        // this formula to rotate the image is been taken from chatgpt
+        
     }
 
     int swap = img->w;
