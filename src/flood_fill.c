@@ -30,7 +30,7 @@ void flood(image_t *img, int x, int y, pixel_t *target_color)
         printf("memory not allocated");
     }
     int stackSize = 0;
-
+//this is a comment reference
     Stack_structure startingpoints;
     startingpoints.a = x;
     startingpoints.b = y;
@@ -77,4 +77,4 @@ void flood(image_t *img, int x, int y, pixel_t *target_color)
 
     free(stack);
 }
-//IMPORTANT THIS CODE HAS PART WHICH WAS SUGGESTED BY CHATGPT I.E (MAKING AN ARRAY FOR 4 DIRECTIONS) & THE IDEA OF USING A STACK WAS INSPIRED FROM WIKIPEDIA.
+// THE IDEA OF USING A STACK WAS INSPIRED FROM WIKIPEDIA.
