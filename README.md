@@ -144,7 +144,7 @@ Responsibilities:
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/Anch19/Paint.git
+git clone https://github.com/Anch19/PixelPaint.git
 cd Paint
 ```
 
